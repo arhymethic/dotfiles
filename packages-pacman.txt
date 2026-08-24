@@ -1,0 +1,108 @@
+# =============================================================================
+# ARCH LINUX PACMAN PACKAGE MANIFEST (Official Repositories)
+# =============================================================================
+
+# --- Base & Build Essentials ---
+base
+base-devel
+git
+wget
+curl
+pciutils
+usbutils
+man-db
+nano
+vim
+
+# --- Shell & Terminal ---
+zsh
+zsh-completions
+bash-completion
+alacritty
+kitty
+fastfetch
+btop
+htop
+cava
+superfile
+yazi
+eza
+cmatrix
+tree
+
+# --- Hyprland & Wayland Desktop ---
+hyprland
+hyprpaper
+hypridle
+hyprlock
+hyprpolkitagent
+hyprsunset
+xdg-desktop-portal-hyprland
+xdg-desktop-portal
+xdg-utils
+uwsm
+qt5-wayland
+qt6-wayland
+wtype
+wev
+
+# --- Display Manager ---
+ly
+
+# --- Bar, Launcher & Notifications ---
+waybar
+rofi
+rofi-emoji
+dunst
+libnotify
+
+# --- Screenshot, Clipboard & Media Controls ---
+grim
+slurp
+wl-clipboard
+cliphist
+brightnessctl
+pamixer
+playerctl
+power-profiles-daemon
+pavucontrol
+jq
+bc
+gawk
+
+# --- Network & Bluetooth ---
+networkmanager
+network-manager-applet
+bluez
+bluez-utils
+blueman
+
+# --- Audio Stack (PipeWire) ---
+pipewire
+pipewire-audio
+pipewire-alsa
+pipewire-pulse
+pipewire-jack
+wireplumber
+gst-plugin-pipewire
+
+# --- GUI Apps, Theming & File Management ---
+nautilus
+nautilus-image-converter
+gvfs
+gvfs-mtp
+gvfs-gphoto2
+gvfs-afc
+usbmuxd
+udisks2
+zathura
+zathura-pdf-mupdf
+
+# --- Typography & Icons ---
+ttf-jetbrains-mono-nerd
+ttf-firacode-nerd
+noto-fonts
+noto-fonts-cjk
+noto-fonts-emoji
+ttf-dejavu
+ttf-liberation

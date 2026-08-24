@@ -1,0 +1,160 @@
+{
+    "layer": "top",
+        "position": "top",
+            "height": 54,
+                "spacing": 10,
+                    "exclusive": true,
+                        "gtk-layer-shell": true,
+
+                            "modules-left": [
+                                "custom/logo",
+                                "hyprland/workspaces",
+                                "cpu",
+                                "memory",
+                                "power-profiles-daemon"
+                            ],
+                                "modules-center": [
+                                    "clock"
+                                ],
+                                    "modules-right": [
+                                        "tray",
+                                        "network",
+                                        "bluetooth",
+                                        "pulseaudio",
+                                        "battery",
+                                        "custom/power"
+                                    ],
+ 
+                                        "custom/logo": {
+        "format": "  ",
+            "tooltip-format": "Quick Settings Control Center",
+                "on-click": "~/.config/rofi/control_center/control_center.sh &"
+    },
+
+    "hyprland/workspaces": {
+        "format": "{icon}",
+                "format-icons": {
+            "1": "1",
+                "2": "2",
+                    "3": "3",
+                        "4": "4",
+                            "5": "5",
+                                "urgent": "",
+                                    "active": "󱓻",
+                                        "default": ""
+        },
+        "persistent-workspaces": {
+            "*": 5
+        }
+    },
+
+    "clock": {
+        "format": " {:%I:%M %p}",
+            "format-alt": " {:%a, %d %b %Y}",
+                "tooltip-format": "<tt><small>{calendar}</small></tt>",
+                    "calendar": {
+            "mode": "month",
+                "on-scroll": 1,
+                    "format": {
+                "months": "<span color='#88c0d0'><b>{}</b></span>",
+                    "days": "<span color='#d8dee9'><b>{}</b></span>",
+                        "weekdays": "<span color='#ebcb8b'><b>{}</b></span>",
+                            "today": "<span color='#bf616a'><b><u>{}</u></b></span>"
+            }
+        }
+    },
+
+    "tray": {
+        "icon-size": 18,
+            "spacing": 10
+    },
+
+    "cpu": {
+        "interval": 5,
+            "format": " {usage}%",
+                "max-length": 10,
+                    "tooltip": true
+    },
+
+    "memory": {
+        "interval": 10,
+            "format": "󰍛 {used:0.1f} GB",
+                "format-alt": "󰍛 {}%",
+                    "max-length": 10,
+                        "tooltip": true,
+                            "tooltip-format": "Memory: {used:0.1f}GB / {total:0.1f}GB\nSwap: {swapUsed:0.1f}GB / {swapTotal:0.1f}GB"
+    },
+
+    "bluetooth": {
+        "format": " {status}",
+            "format-connected": " {device_alias}",
+                "format-connected-battery": " {device_alias} ({device_battery_percentage}%)",
+                    "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+                        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+                            "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+                                "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+                                    "on-click": "~/.config/rofi/bluetooth/blt-connect.sh &"
+    },
+
+    "network": {
+        "format-wifi": "{icon} {essid}",
+            "format-ethernet": "󰀂 {ifname}",
+                "format-disconnected": "󰖪 Disconnected",
+                    "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+                        "tooltip-format-wifi": " {essid}\nInterface: {ifname}\nIP: {ipaddr}\nSignal: {signalStrength}%\nFrequency: {frequency} MHz\nSpeed: {bandwidthDownBytes}↓ {bandwidthUpBytes}↑",
+                            "tooltip-format-ethernet": "󰀂 {ifname}\nIP: {ipaddr}\nSpeed: {bandwidthDownBytes}↓ {bandwidthUpBytes}↑",
+                                "tooltip-format-disconnected": "Status: Offline",
+                                    "on-click": "~/.config/rofi/wifi/wifi.sh &",
+                                        "interval": 5
+    },
+
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": "󰝟 Muted",
+        "scroll-step": 5,
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+        "on-click-right": "pavucontrol",
+        "tooltip-format": "{desc} ({volume}%)",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "󰋎",
+            "headset": "󰋎",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["󰕿", "󰖀", "󰕾"]
+        }
+    },
+
+    "battery": {
+        "states": {
+            "good": 95,
+                "warning": 30,
+                    "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+            "format-charging": "󰂄 {capacity}%",
+                "format-plugged": "󰂄 {capacity}%",
+                    "format-alt": "{icon} {time}",
+                        "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+    },
+
+    "power-profiles-daemon": {
+        "format": "{icon}",
+            "tooltip-format": "Profile: {profile}\nDriver: {driver}",
+                "tooltip": true,
+                    "format-icons": {
+            "default": "󰗑",
+                "performance": "󱐌",
+                    "balanced": "󰗑",
+                        "power-saver": "󰌪"
+        },
+        "on-click": "powerprofilesctl set $(echo -e 'performance\nbalanced\npower-saver' | rofi -dmenu -p 'Power Profile')"
+    },
+
+    "custom/power": {
+        "format": " 󰤆 ",
+            "tooltip": false,
+                "on-click": "~/.config/rofi/powermenu/type-2/powermenu.sh &"
+    }
+}

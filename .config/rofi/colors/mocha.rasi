@@ -1,0 +1,15 @@
+* {
+    /* Pure dark glass background with high transparency */
+    background:     rgba(15, 15, 15, 0.65);
+    background-alt: rgba(255, 255, 255, 0.10);
+    
+    /* Clean white and light-gray text */
+    foreground:     #FFFFFF;
+    active:         #E0E0E0;
+    
+    /* Monochrome selections (frosted glass button highlight) */
+    selected:       rgba(255, 255, 255, 0.22);
+    
+    /* Urgent/Attention states (solid clean white) */
+    urgent:         #FFFFFF;
+}

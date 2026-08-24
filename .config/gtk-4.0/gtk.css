@@ -1,0 +1,106 @@
+/* =============================================================================
+   LIBADWAITA MONOCHROME HIGH-CONTRAST GLASS OVERRIDES
+   ============================================================================= */
+
+@define-color accent_color #ffffff;
+@define-color accent_bg_color rgba(255, 255, 255, 0.30);
+@define-color accent_fg_color #ffffff;
+
+/* Darker glass tint for increased text contrast against bright wallpapers */
+@define-color window_bg_color rgba(12, 12, 12, 0.65);
+@define-color window_fg_color #ffffff;
+@define-color view_bg_color transparent;
+@define-color view_fg_color #ffffff;
+
+/* Translucent sidebar with high contrast background */
+@define-color sidebar_bg_color rgba(0, 0, 0, 0.35);
+@define-color sidebar_fg_color #ffffff;
+@define-color sidebar_backdrop_color rgba(0, 0, 0, 0.35);
+
+@define-color headerbar_bg_color rgba(255, 255, 255, 0.08);
+@define-color headerbar_fg_color #ffffff;
+@define-color headerbar_border_color rgba(255, 255, 255, 0.15);
+
+@define-color card_bg_color rgba(255, 255, 255, 0.10);
+@define-color card_fg_color #ffffff;
+
+@define-color popover_bg_color rgba(18, 18, 18, 0.90);
+@define-color popover_fg_color #ffffff;
+
+/* =============================================================================
+   READABILITY & TEXT CONTRAST BOOSTS
+   ============================================================================= */
+
+/* Main window container */
+window.nautilus-window,
+window.nautilus-window > overlay,
+window.nautilus-window split-view,
+window.nautilus-window paned,
+window.nautilus-window stack,
+.nautilus-window viewstack {
+  background-color: rgba(12, 12, 12, 0.65) !important;
+  color: #ffffff !important;
+}
+
+/* Sidebar translucency with dark backing */
+window.nautilus-window .sidebar,
+window.nautilus-window navigation-sidebar,
+window.nautilus-window .sidebar-pane,
+window.nautilus-window placessidebar,
+window.nautilus-window navigation-sidebar > scrolledwindow,
+window.nautilus-window navigation-sidebar listview,
+window.nautilus-window navigation-sidebar widget {
+  background-color: rgba(0, 0, 0, 0.35) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+
+/* File/Folder Labels: Bold font weight & sharp drop shadows */
+label, 
+.sidebar label, 
+.view label,
+row label {
+  color: #ffffff !important;
+  font-weight: 500 !important;
+  text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.9) !important;
+}
+
+/* Dim secondary text / metadata without making it unreadable */
+.dim-label,
+label.subtitle,
+.sidebar label.subtitle {
+  color: rgba(255, 255, 255, 0.75) !important;
+  text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.9) !important;
+}
+
+/* High-Visibility Selected Rows (Bright Frosted Glass Pill) */
+row:selected, 
+.grid-child:selected,
+list > row:selected {
+  background-color: rgba(255, 255, 255, 0.25) !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+  border-radius: 8px !important;
+  color: #ffffff !important;
+}
+
+row:selected label,
+.grid-child:selected label {
+  font-weight: 700 !important;
+  text-shadow: 0px 1px 4px rgba(0, 0, 0, 1.0) !important;
+}
+
+/* Hover effects */
+row:hover, 
+.grid-child:hover {
+  background-color: rgba(255, 255, 255, 0.12) !important;
+  border-radius: 8px !important;
+}
+
+/* Path bar & search inputs */
+entry, 
+.path-bar button {
+  background-color: rgba(255, 255, 255, 0.12) !important;
+  border: 1px solid rgba(255, 255, 255, 0.20) !important;
+  border-radius: 10px !important;
+  color: #ffffff !important;
+  font-weight: 500 !important;
+}

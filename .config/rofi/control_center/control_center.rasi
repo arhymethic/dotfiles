@@ -1,0 +1,97 @@
+/*****----- Monochrome Glass Theme for Rofi Control Center -----*****/
+configuration {
+    show-icons:                  false;
+    drun-display-format:         "{name}";
+}
+
+@import                          "../shared/colors.rasi"
+@import                          "../shared/fonts.rasi"
+
+window {
+    transparency:                "real";
+    location:                    center;
+    anchor:                      center;
+    fullscreen:                  false;
+    width:                       720px;
+    enabled:                     true;
+    margin:                      0px;
+    padding:                     22px;
+    border:                      1px solid;
+    border-radius:               22px;
+    border-color:                rgba(255, 255, 255, 0.16);
+    background-color:            @background;
+    cursor:                      "default";
+}
+
+mainbox {
+    enabled:                     true;
+    spacing:                     14px;
+    margin:                      0px;
+    padding:                     0px;
+    background-color:            transparent;
+    children:                    [ "inputbar", "listview" ];
+}
+
+inputbar {
+    enabled:                     true;
+    spacing:                     10px;
+    padding:                     11px 18px;
+    border:                      1px solid;
+    border-radius:               14px;
+    border-color:                rgba(255, 255, 255, 0.14);
+    background-color:            rgba(255, 255, 255, 0.08);
+    text-color:                  #FFFFFF;
+    children:                    [ "prompt" ];
+}
+
+prompt {
+    enabled:                     true;
+    background-color:            transparent;
+    text-color:                  #FFFFFF;
+    font:                        "JetBrainsMono Nerd Font Bold 12";
+}
+
+listview {
+    enabled:                     true;
+    columns:                     1;
+    lines:                       11;
+    cycle:                       true;
+    dynamic:                     true;
+    scrollbar:                   false;
+    layout:                      vertical;
+    fixed-height:                false;
+    spacing:                     6px;
+    background-color:            transparent;
+    text-color:                  #FFFFFF;
+}
+
+element {
+    enabled:                     true;
+    spacing:                     12px;
+    padding:                     11px 18px;
+    border-radius:               12px;
+    background-color:            rgba(255, 255, 255, 0.035);
+    text-color:                  rgba(255, 255, 255, 0.85);
+    cursor:                      pointer;
+}
+
+element normal.normal {
+    background-color:            rgba(255, 255, 255, 0.035);
+    text-color:                  rgba(255, 255, 255, 0.85);
+}
+
+element selected.normal {
+    background-color:            rgba(255, 255, 255, 0.18);
+    text-color:                  #FFFFFF;
+    border:                      1px solid;
+    border-color:                rgba(255, 255, 255, 0.32);
+}
+
+element-text {
+    background-color:            transparent;
+    text-color:                  inherit;
+    cursor:                      inherit;
+    vertical-align:              0.5;
+    horizontal-align:            0.0;
+    font:                        "JetBrainsMono Nerd Font Medium 11";
+}

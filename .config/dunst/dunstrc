@@ -1,0 +1,86 @@
+[global]
+    monitor = 0
+    follow = mouse
+    
+    # Geometry & Alignment
+    width = (0, 280)
+    height = (0, 100)
+    origin = top-center
+    offset = (0, 16)
+    
+    alignment = left
+    vertical_alignment = center
+    ellipsize = middle
+    padding = 10
+    horizontal_padding = 12
+    text_icon_padding = 10
+    icon_position = left
+    min_icon_size = 32
+    max_icon_size = 48
+    
+    # Monochrome Glass Borders & Spacing
+    separator_height = 2
+    frame_width = 1
+    corner_radius = 16
+    gap_size = 12
+    
+    # Progress Bar (Volume / Brightness)
+    progress_bar = true
+    progress_bar_height = 6
+    progress_bar_frame_width = 0
+    progress_bar_min_width = 150
+    progress_bar_max_width = 300
+    
+    # Clean Typography (FIXED: No backslashes in format)
+    font = JetBrainsMono Nerd Font 9
+    format = "<b><span size='large'>%s</span></b>\n<span size='small'>%b</span>"
+    line_height = 3
+    
+    # Behavior
+    notification_limit = 5
+    idle_threshold = 120
+    history_length = 20
+    show_age_threshold = 60
+    markup = full
+    word_wrap = yes
+    sort = yes
+    shrink = no
+    indicate_hidden = yes
+    sticky_history = yes
+    ignore_newline = no
+    show_indicators = no
+    stack_duplicates = true
+    always_run_script = true
+
+    # Mouse actions
+    mouse_left_click = do_action
+    mouse_middle_click = close_all
+    mouse_right_click = close_current
+
+[experimental]
+    per_monitor_dpi = false
+
+# =============================================================================
+# HEAVY BLUR MONOCHROME PALETTE
+# =============================================================================
+
+[urgency_low]
+    background = "#00000099"
+    foreground = "#a0a0a0"
+    highlight = "#ffffff"
+    frame_color = "#ffffff30"
+    timeout = 4
+
+[urgency_normal]
+    background = "#05050599"
+    foreground = "#ffffff"
+    highlight = "#ffffff"
+    frame_color = "#ffffff70"
+    timeout = 6
+
+[urgency_critical]
+    background = "#0a0a0a99"
+    foreground = "#ffffff"
+    highlight = "#ffffff"
+    frame_color = "#ffffff"
+    timeout = 0

@@ -1,0 +1,14 @@
+# =============================================================================
+# ARCH USER REPOSITORY (AUR) PACKAGE MANIFEST
+# =============================================================================
+
+# --- Screenshot & HUD Utilities ---
+grimblast-git
+hyprkcs-git
+
+# --- Window Switcher & Displays ---
+snappy-switcher
+monique
+
+# --- Extra CLI Toys ---
+pipes.sh

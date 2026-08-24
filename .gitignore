@@ -1,0 +1,12 @@
+# Swap and backup files
+*.swp
+*.swo
+*.bak
+*~
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Logs
+*.log
