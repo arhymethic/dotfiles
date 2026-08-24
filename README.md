@@ -1,12 +1,12 @@
-# 🪐 Modern Hyprland Dotfiles
+# Rhythm's Hyprland Dotfiles
 
-A sleek, high-performance, and keyboard-driven desktop setup for **Arch Linux**, powered by **Hyprland**, **Ly Display Manager**, **Waybar**, **Rofi Control Center**, and **Snappy Switcher**.
+For **Arch Linux**, powered by **Hyprland**, **Ly Display Manager**, **Waybar**, **Rofi Control Center**, and **Snappy Switcher**.
 
 Designed for effortless deployment onto any fresh **Arch Linux** installation (including `archinstall`).
 
 ---
 
-## ⚡ Quick Install (Fresh Arch Linux)
+## Quick Install (Fresh Arch Linux)
 
 Clone the repository and run the automated installer:
 
@@ -25,7 +25,7 @@ sudo reboot
 
 ---
 
-## 🛡️ Sudo Commands & Permissions Breakdown
+## Sudo Commands
 
 The installer executes the following standard `sudo` operations during setup:
 
@@ -44,7 +44,7 @@ The installer executes the following standard `sudo` operations during setup:
 
 ---
 
-## 📦 Package Manifest
+## Package Manifest
 
 The setup separates packages cleanly between official Arch repositories and the AUR.
 
@@ -69,56 +69,9 @@ The setup separates packages cleanly between official Arch repositories and the 
 
 ---
 
-## ⌨️ Keybindings Reference
-
-### 🚀 Launchers & System Controls
-| Keybinding | Action |
-| :--- | :--- |
-| <kbd>Super</kbd> + <kbd>Return</kbd> | Launch Terminal (`alacritty`) |
-| <kbd>Super</kbd> + <kbd>E</kbd> | Launch File Manager (`nautilus`) |
-| <kbd>Super</kbd> + <kbd>R</kbd> | App Launcher (`rofi`) |
-| <kbd>Super</kbd> + <kbd>A</kbd> | **Android-Style Control Center** (Quick settings toggle) |
-| <kbd>Super</kbd> + <kbd>B</kbd> | Bluetooth Menu |
-| <kbd>Super</kbd> + <kbd>C</kbd> | Clipboard History Picker (`cliphist`) |
-| <kbd>Super</kbd> + <kbd>N</kbd> | Emoji Picker (`rofi-emoji`) |
-| <kbd>Super</kbd> + <kbd>L</kbd> | Lock Screen (`hyprlock`) |
-| <kbd>Super</kbd> + <kbd>M</kbd> | Power / Session Menu |
-
-### 🪟 Window Management
-| Keybinding | Action |
-| :--- | :--- |
-| <kbd>Super</kbd> + <kbd>W</kbd> | Close active window |
-| <kbd>Super</kbd> + <kbd>V</kbd> | Toggle Floating mode |
-| <kbd>Super</kbd> + <kbd>F</kbd> | Toggle Fullscreen |
-| <kbd>Super</kbd> + <kbd>Q</kbd> | Toggle Split direction |
-| <kbd>Alt</kbd> + <kbd>Tab</kbd> | Global Window Switcher (`snappy-switcher`) |
-| <kbd>Super</kbd> + <kbd>Tab</kbd> | Workspace Window Switcher |
-| <kbd>Super</kbd> + <kbd>Arrow Keys</kbd> | Focus window in direction |
-| <kbd>Super</kbd> + <kbd>Shift</kbd> + <kbd>Arrow Keys</kbd> | Resize window in direction |
-| <kbd>Super</kbd> + <kbd>Left Mouse</kbd> | Drag floating window |
-| <kbd>Super</kbd> + <kbd>Right Mouse</kbd> | Resize window |
-
-### 🖼️ Wallpaper & HUD Controls
-| Keybinding | Action |
-| :--- | :--- |
-| <kbd>Super</kbd> + <kbd>]</kbd> | Switch to Next Wallpaper (`~/Wallpapers`) |
-| <kbd>Super</kbd> + <kbd>[</kbd> | Switch to Previous Wallpaper |
-| <kbd>Super</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd> | Area Screenshot to Clipboard (`grimblast`) |
-| <kbd>F4</kbd> / <kbd>XF86AudioMicMute</kbd> | Toggle Microphone Mute (with HUD) |
-| <kbd>F7</kbd> | Open Monitor Settings (`monique`) |
-| <kbd>F8</kbd> | Toggle Wi-Fi ON / OFF |
-| <kbd>F10</kbd> / <kbd>XF86Bluetooth</kbd> | Toggle Bluetooth ON / OFF |
-| <kbd>F12</kbd> | Cycle CPU Power Profile (Performance / Balanced / Power Saver) |
-| <kbd>Volume Up / Down / Mute</kbd> | Adjust Volume with Dunst HUD feedback |
-| <kbd>Brightness Up / Down</kbd> | Adjust Screen Brightness with Dunst HUD feedback |
-
----
-
-## 🎨 Wallpapers
+## Wallpapers
 
 The entire wallpaper collection is included in the [`Wallpapers/`](Wallpapers/) folder and automatically deployed to `~/Wallpapers`.
-
-You can dynamically cycle through them anytime using <kbd>Super</kbd> + <kbd>]</kbd> (next) and <kbd>Super</kbd> + <kbd>[</kbd> (previous).
 
 ---
 
