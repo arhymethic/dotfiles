@@ -9,7 +9,11 @@
 
 # Auto-detect battery device
 BATTERY=$(ls /sys/class/power_supply/ 2>/dev/null | grep -E '^BAT' | head -n 1)
-BATTERY="${BATTERY:-BAT1}"
+
+# If running on desktop PC without a battery, exit cleanly
+if [ -z "$BATTERY" ]; then
+    exit 0
+fi
 
 LOW_THRESHOLD=20      # Low battery notification threshold
 SLEEP_THRESHOLD=10    # System suspend threshold
@@ -93,4 +97,3 @@ while true; do
 
     sleep "$interval"
 done
-

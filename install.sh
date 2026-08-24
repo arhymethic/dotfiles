@@ -32,6 +32,14 @@ log_error() {
     echo -e "${RED}${BOLD}[ERROR]${NC} $1"
 }
 
+# --- Cleanup Trap ---
+cleanup() {
+    if [ -n "${SUDO_PID:-}" ]; then
+        kill "$SUDO_PID" 2>/dev/null || true
+    fi
+}
+trap cleanup EXIT INT TERM
+
 # --- Banner ---
 clear
 echo -e "${CYAN}${BOLD}"
@@ -64,8 +72,9 @@ fi
 
 log_info "Verifying sudo permissions..."
 sudo -v
-# Keep sudo alive in background during long installations
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+# Keep sudo alive in background during installation
+(while true; do sudo -n true; sleep 50; kill -0 "$$" || exit; done 2>/dev/null) &
+SUDO_PID=$!
 
 # --- 2. System Update ---
 log_info "Step 1/8: Synchronizing databases and updating system packages..."
@@ -108,8 +117,21 @@ else
     log_warn "packages-aur.txt not found, skipping AUR package batch install."
 fi
 
-# --- 6. Backup & Deploy Configurations ---
-log_info "Step 6/8: Deploying dotfiles and wallpapers..."
+# --- 6. Oh-My-Zsh & Shell Initialization ---
+log_info "Step 6/8: Preparing Zsh & Oh-My-Zsh environment..."
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+    log_info "Installing Oh-My-Zsh (unattended)..."
+    RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+fi
+
+ZSH_SUGG_DIR="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+if [ ! -d "$ZSH_SUGG_DIR" ]; then
+    log_info "Installing zsh-autosuggestions plugin..."
+    git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_SUGG_DIR"
+fi
+
+# --- 7. Backup & Deploy Configurations ---
+log_info "Step 7/8: Deploying dotfiles and wallpapers with safe backups..."
 BACKUP_TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 BACKUP_DIR="$HOME/.config_backup_$BACKUP_TIMESTAMP"
 
@@ -133,7 +155,7 @@ if [ -d "$SCRIPT_DIR/.config" ]; then
     log_success "All .config directories deployed."
 fi
 
-# Deploy home dotfiles
+# Deploy home dotfiles (deployed AFTER Oh-My-Zsh to preserve custom .zshrc)
 if [ -d "$SCRIPT_DIR/home" ]; then
     for hf in "$SCRIPT_DIR/home"/.??* "$SCRIPT_DIR/home"/*; do
         [ -e "$hf" ] || continue
@@ -148,7 +170,7 @@ if [ -d "$SCRIPT_DIR/home" ]; then
         
         cp -r "$hf" "$target_file"
     done
-    log_success "Home configuration files (.bashrc, .zshrc, etc.) deployed."
+    log_success "Home configuration files (.bashrc, .zshrc, .dir_colors, .inputrc) deployed."
 fi
 
 # Deploy Wallpapers
@@ -159,7 +181,7 @@ if [ -d "$SCRIPT_DIR/Wallpapers" ]; then
     log_success "Wallpapers deployed successfully."
 fi
 
-# --- 7. Permissions & Scripts ---
+# Set permissions on helper scripts
 log_info "Setting executable permissions on all helper scripts..."
 if [ -d "$HOME/.config/hypr/scripts" ]; then
     chmod +x "$HOME/.config/hypr/scripts"/*.sh 2>/dev/null || true
@@ -175,32 +197,33 @@ fi
 log_info "Configuring hardware user permissions..."
 sudo usermod -aG video,audio,input "$USER" 2>/dev/null || true
 
-# Configure sudoers rule for CPU Turbo Sync
-log_info "Configuring passwordless CPU turbo toggle sudoers rule..."
-SUDOERS_TURBO="/etc/sudoers.d/hypr-turbo"
-echo "$USER ALL=(ALL) NOPASSWD: /usr/bin/tee /sys/devices/system/cpu/intel_pstate/no_turbo" | sudo tee "$SUDOERS_TURBO" >/dev/null
-sudo chmod 0440 "$SUDOERS_TURBO"
-
-# --- 8. Oh-My-Zsh & Shell Setup ---
-log_info "Step 7/8: Configuring Zsh & Oh-My-Zsh..."
-if [ ! -d "$HOME/.oh-my-zsh" ]; then
-    log_info "Installing Oh-My-Zsh..."
-    RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+# Safe Sudoers Configuration for CPU Turbo Sync
+TURBO_SYS_PATH="/sys/devices/system/cpu/intel_pstate/no_turbo"
+if [ -f "$TURBO_SYS_PATH" ]; then
+    log_info "Configuring passwordless CPU turbo toggle sudoers rule..."
+    SUDOERS_TMP=$(mktemp)
+    echo "$USER ALL=(ALL) NOPASSWD: /usr/bin/tee $TURBO_SYS_PATH" > "$SUDOERS_TMP"
+    if sudo visudo -cf "$SUDOERS_TMP" >/dev/null 2>&1; then
+        sudo cp "$SUDOERS_TMP" /etc/sudoers.d/hypr-turbo
+        sudo chmod 0440 /etc/sudoers.d/hypr-turbo
+        log_success "Sudoers rule validated and installed."
+    else
+        log_warn "Sudoers syntax check failed, skipping sudoers modification."
+    fi
+    rm -f "$SUDOERS_TMP"
 fi
 
-ZSH_SUGG_DIR="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
-if [ ! -d "$ZSH_SUGG_DIR" ]; then
-    log_info "Installing zsh-autosuggestions plugin..."
-    git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_SUGG_DIR"
-fi
-
+# Set default login shell
 if [ "$SHELL" != "$(which zsh)" ]; then
     log_info "Setting default shell to Zsh for $USER..."
-    sudo chsh -s "$(which zsh)" "$USER" || chsh -s "$(which zsh)"
+    sudo chsh -s "$(which zsh)" "$USER" 2>/dev/null || chsh -s "$(which zsh)" 2>/dev/null || true
 fi
 
-# --- 9. Display Manager (Ly) & System Services ---
+# --- 8. Display Manager (Ly) & System Services ---
 log_info "Step 8/8: Enabling system services..."
+
+# Disable conflicting display managers if present
+sudo systemctl disable sddm.service gdm.service lightdm.service 2>/dev/null || true
 
 # Enable Ly display manager
 if systemctl list-unit-files | grep -q "ly.service"; then
@@ -209,7 +232,7 @@ elif systemctl list-unit-files | grep -q "ly@.service"; then
     sudo systemctl enable ly@tty2.service
 else
     log_warn "Ly service unit not found directly, attempting standard enable..."
-    sudo systemctl enable ly || true
+    sudo systemctl enable ly 2>/dev/null || true
 fi
 
 # Enable System Services
@@ -241,7 +264,7 @@ echo -e "  • ${CYAN}Alacritty & Kitty${NC} GPU terminals with JetBrains Mono N
 echo -e "  • ${CYAN}Zsh + Oh-My-Zsh${NC} with autosuggestions"
 echo ""
 if [ -d "$BACKUP_DIR" ]; then
-    echo -e "${YELLOW}Old configurations were backed up to: $BACKUP_DIR${NC}"
+    echo -e "${YELLOW}Old configurations were safely backed up to: $BACKUP_DIR${NC}"
     echo ""
 fi
 echo -e "${BOLD}To start using your new environment, reboot your computer:${NC}"
