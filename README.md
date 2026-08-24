@@ -1,4 +1,4 @@
-# Rhythm's Hyprland Dotfiles
+## Rhythm's Dotfiles 😛
 
 For **Arch Linux**, powered by **Hyprland**, **Ly Display Manager**, **Waybar**, **Rofi Control Center**, and **Snappy Switcher**.
 
