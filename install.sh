@@ -193,6 +193,12 @@ if [ -d "$HOME/.config/rofi" ]; then
     fi
 fi
 
+# Symlink snappy-switcher to ~/.local/bin for Hyprland binding compatibility
+mkdir -p "$HOME/.local/bin"
+if command -v snappy-switcher &>/dev/null; then
+    ln -sf "$(which snappy-switcher)" "$HOME/.local/bin/snappy-switcher"
+fi
+
 # Add user to hardware groups
 log_info "Configuring hardware user permissions..."
 sudo usermod -aG video,audio,input "$USER" 2>/dev/null || true
