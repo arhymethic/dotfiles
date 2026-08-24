@@ -1,13 +1,16 @@
 ## Rhythm's Dotfiles 😛
 
+---
+
 For **Arch Linux**, powered by **Hyprland**, **Ly Display Manager**, **Waybar**, **Rofi Control Center**, and **Snappy Switcher**.
 
 Designed for effortless deployment onto any fresh **Arch Linux** installation (including `archinstall`).
 
 ---
 
-## Quick Install (Fresh Arch Linux)
+## Quick Install
 
+After archInstall,
 Clone the repository and run the automated installer:
 
 ```bash
